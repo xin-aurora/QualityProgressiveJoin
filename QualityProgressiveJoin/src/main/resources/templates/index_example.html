@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Webpage Demo</title>
+</head>
+<body>
+    <h1>Compute and Display Results</h1>
+    <form id="inputForm">
+        <label for="inputData">Enter Data:</label>
+        <input type="text" id="inputData" name="data" required> <!-- Name must match @RequestParam -->
+        <button type="button" onclick="sendData()">Submit</button>
+    </form>
+
+    <h2>Results</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Input</th>
+                <th>Computed Result</th>
+            </tr>
+        </thead>
+        <tbody id="resultsTable">
+            <!-- Results will be added here dynamically -->
+        </tbody>
+    </table>
+
+    <!-- Link to the external JavaScript file -->
+    <script src="/js/script.js"></script>
+</body>
+</html>

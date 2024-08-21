@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>QualProJoinVis Search Panel</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="node_modules/ol/ol.css">
+  <style>
+    .map {
+      width: 100%;
+      height: 700px;
+    }
+    a.skiplink {
+      position: absolute;
+      clip: rect(1px, 1px, 1px, 1px);
+      padding: 0;
+      border: 0;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+    }
+    a.skiplink:focus {
+      clip: auto;
+      height: auto;
+      width: auto;
+      background-color: #fff;
+      padding: 0.3em;
+    }
+    #map:focus {
+      outline: #4A74A8 solid 0.15em;
+    }
+  </style>
+  </head>
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin - v2.4.1
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <section class="section dashboard">
+    <div class="row">
+       <!-- Left side columns -->
+       <div class="col-lg-4">
+        <div class="row">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Search panel</h5>
+               <!-- Multi Columns Form -->
+               <form class="row g-3">
+                <!-- <div class="form-floating mb-3"> -->
+                    <!-- <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;"></textarea> -->
+                    <!-- <label for="floatingTextarea">Query</label> -->
+                <div class="col-md-6">  
+                    <label for="SQLSelect" class="form-label">SELECT</label>
+                    <input type="text" class="form-control" id="SQLSelect" placeholder="">
+                </div>
+                <div class="col-md-6">  
+                  <label for="SQLFrom" class="form-label">FROM</label>
+                  <input type="text" class="form-control" id="SQLFrom" placeholder="">
+                </div>
+                <div class="col-md-7">  
+                  <label for="SQLWhere" class="form-label">WHERE</label>
+                  <input type="text" class="form-control" id="SQLWhere" placeholder="">
+                </div>
+                <div class="col-md-5">  
+                  <label for="SQLWhere" class="form-label">GROUP BY</label>
+                  <input type="text" class="form-control" id="SQLWhere" placeholder="">
+                </div>
+
+                <div class="col-md-4">
+                  <label for="inputNumPar" class="form-label"># of Partitions:</label>
+                  <input type="text" class="form-control" id="inputNumPar" placeholder="5">
+                </div>
+                  <div class="col-md-4">
+                    <label for="inputNumBarches" class="form-label"># of Batches:</label>
+                    <input type="text" class="form-control" id="inputNumBarches" placeholder="35">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="errorBound" class="form-label">Error Bound: </label>
+                    <input type="text" class="form-control" id="errorBound" placeholder="0.1">
+                  </div>
+
+                  <div class="col-md-10">
+                    <label for="storePath" class="form-label">Result Store Path</label>
+                    <input type="text" class="form-control" id="storePath" placeholder="/home/qualProJoinVis/spatialJoin/results/">
+                  </div>
+
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-6">Partition Function</legend>
+                        <div class="col-md-6 pt-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="parRadios" id="parRadios1" value="option1" checked>
+                            <label class="form-check-label" for="parRadios1">
+                                Hash Partition
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-6 pt-2">
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="parRadios" id="gridRadios2" value="option2" unchecked>
+                            <label class="form-check-label" for="gridRadios2">
+                                Grid Partition
+                            </label>
+                          </div>
+                        </div> 
+                </fieldset>
+
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-mb-9">Visualize Resuts</legend>
+                    <div class="col-md-2 pt-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="visualResultRadios" id="gridRadios1" value="option1" checked>
+                            <label class="form-check-label" for="gridRadios1">
+                            Yes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 pt-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="visualResultRadios" id="gridRadios2" value="option2" unchecked>
+                        <label class="form-check-label" for="gridRadios2">
+                            No
+                        </label>
+                      </div>
+                    </div> 
+                    <!-- <div class="col-md-4 pt-2">
+                      <button type="button" class="btn btn-outline-primary">QPJSearch</button>
+                    </div>
+                    <div class="col-md-4 pt-2">
+                      <button type="button" class="btn btn-outline-primary">PrismSearch</button>
+                    </div> -->
+                </fieldset>
+
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-6 pt-2">Visualize Statistics</legend>
+                    <div class="col-md-2 pt-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="visualStatisRadios" id="gridRadios1" value="option1" checked>
+                            <label class="form-check-label" for="gridRadios1">
+                            Yes
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">Visal Format</label>
+                        <select id="inputState" class="form-select">
+                          <option>BarChart</option>
+                          <option selected>PieChart</option>
+                          <option>Table</option>
+                          <!-- <option>Heatmaps</option> -->
+                        </select>
+                    </div>
+                    <div class="col-md-2 pt-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="visualStatisRadios" id="gridRadios2" value="option2" unchecked>
+                        <label class="form-check-label" for="gridRadios2">
+                            No
+                        </label>
+                      </div>
+                    </div> 
+                    <!-- <div class="col-md-3 pt-2">
+                      <button type="button" class="btn btn-outline-primary" disabled>Search</button>
+                    </div> -->
+                </fieldset>
+                <fieldset class="row md-1">
+                  <legend class="col-form-label col-sm-6 pt-2">Search Framework</legend>
+                <div class="col-md-4 pt-2">
+                      <button type="button" class="btn btn-outline-primary">QPJSearch</button>
+                    </div>
+                    <div class="col-md-4 pt-2">
+                      <button type="button" class="btn btn-outline-primary">PrismSearch</button>
+                    </div>
+                </fieldset>
+
+            </form><!-- End Multi Columns Form -->
+            </div>
+          </div>
+        </div>
+       </div> <!-- Left side columns -->
+
+       <!-- Right side columns -->
+       <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <!-- Results -->
+              <!-- <h5 class="card-title">Query Results</h5>
+                <div class="post-item clearfix">
+                  <img src="map2.png" alt="result" width: 100%;
+                  height="700">
+                </div>   -->
+                <h5 class="card-title">Result Statistics</h5>
+                <canvas id="pieChart" style="max-height: 200px;"></canvas>
+
+                  <script>
+                    document.addEventListener("DOMContentLoaded", () => {
+                      new Chart(document.querySelector('#pieChart'), {
+                        type: 'pie',
+                        data: {
+                          labels: [
+                            'P1',
+                            'P2',
+                            'P3',
+                            'P4'
+                          ],
+                          datasets: [{
+                            label: 'My First Dataset',
+                            // data: [50,300, 50, 120, 100],
+                            data: [546,360, 288, 246],
+                            backgroundColor: [
+                              'rgb(255, 99, 132)',
+                              'rgb(248, 159, 65)',
+                              'rgb(255, 205, 86)',
+                              'rgb(75, 192, 192)'
+                              // 'rgb(54, 162, 235)'
+                            ],
+                            hoverOffset: 4
+                          }]
+                        }
+                      });
+                    });
+                  </script>
+                <!-- End Pie CHart -->
+                <h5 class="card-title">Result Panel</h5>
+
+                <!-- Default Table -->
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">City</th>
+                      <th scope="col">TweetId</th>
+                      <th scope="col">State</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Portland</th>
+                      <td>1093</td>
+                      <td>Oregon</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Phoenix</th>
+                      <td>1094</td>
+                      <td>Arizona</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Winsted</th>
+                      <td>1095</td>
+                      <td>Connecticut</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Louisville</th>
+                      <td>29305</td>
+                      <td>Kentucky</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Louisville</th>
+                      <td>29306</td>
+                      <td>Kentucky</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Tucson</th>
+                      <td>29307</td>
+                      <td>Arizona</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- End Default Table Example -->
+              <!-- </div> -->
+            <!-- </div> -->
+                <!-- End Results -->
+              <!-- Progress Bars with labels-->
+              <h5 class="card-title">Output Rate</h5>
+              <div class="progress mt-3">
+                  <div class="progress-bar" role="progressbar" style="width: 6.93%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">6.93%</div>
+              </div> <!-- End Progress Bars with labels -->
+              <!-- Control Button -->
+              <fieldset class="row mb-2">
+                <!-- <legend class="col-form-label col-sm-3 pt-3">Control</legend> -->
+                <div class="col-md-4 pt-2">
+                  <button type="button" class="btn btn-outline-primary">Next Batch</button>
+                </div>
+              </fieldset> <!-- End Control Button -->
+              </div>
+            </div>
+            </div>
+          </div>
+      </div><!-- End Right side columns -->
+    </div>
+  </section>
+
+<!-- Vendor JS Files -->
+<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/chart.js/chart.min.js"></script>
+<script src="assets/vendor/echarts/echarts.min.js"></script>
+<script src="assets/vendor/quill/quill.min.js"></script>
+<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+</body>
+</html>
